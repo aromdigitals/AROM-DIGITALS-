@@ -280,6 +280,44 @@ body.termsOpen main,body.privacyOpen main{display:none}
 @keyframes lgDrop{from{transform:translate(0,0)}to{transform:translate(26px,83px)}}
 @keyframes lgHd{0%,100%{transform:rotate(0)}50%{transform:rotate(-4deg)}}
 @keyframes lgFormIn{from{opacity:0;visibility:hidden;transform:translateY(14px)}to{opacity:1;visibility:visible;transform:none}}
+/* phone login */
+.lgPhone{display:none}.lgForm[data-view=phone] .lgPhone{display:block}.lgForm[data-view=phone] .lgMain{display:none!important}
+.lgPhone .lgFields{margin-top:22px}
+.lgPre{position:absolute;left:14px;top:50%;transform:translateY(-50%);font-weight:800;font-size:15px;pointer-events:none}
+.lgBox input.lgPh{padding-left:56px}
+.lgBox input.lgOtp{padding:0 14px;text-align:center;font-size:22px;font-weight:800;letter-spacing:.5em;text-indent:.5em}
+.lgBtns{display:flex;justify-content:space-between;gap:10px;margin-top:14px;font-size:13px}
+.lgPhoneBtn svg.icon{width:18px;height:18px}
+/* OTP boxes + orb animation */
+.lgOtpWrap{position:relative;margin-top:22px;height:54px}
+.lgOtpRow{display:flex;gap:8px;justify-content:center}
+.lgOB{flex:1;min-width:0;width:100%;height:54px;padding:0;border-radius:12px;border:2px solid #0a0a0b;background:#0a0a0b;color:#fff;text-align:center;font:800 22px "Manrope",sans-serif;outline:0;caret-color:#ff9a5e;transition:border-color .15s,box-shadow .15s,background .15s}
+.lgOB:focus{border-color:#fff;box-shadow:0 0 0 4px rgba(255,255,255,.38)}
+.lgOB.f{animation:lgPop .18s ease-out}
+.lgOtpHint{margin-top:12px;text-align:center;font-size:12.5px;color:rgba(10,10,11,.75)}
+.lgOrb{position:absolute;top:0;left:0;width:54px;height:54px;border-radius:50%;border:3px solid #0a0a0b;background:radial-gradient(circle at 35% 30%,#ffe2c9,#ff5a36 58%,#c93a12);box-shadow:0 8px 22px rgba(10,10,11,.35);opacity:0;pointer-events:none;z-index:2}
+.lgOrb:before{content:"";position:absolute;inset:-3px;border-radius:50%;background:#0a0a0b;opacity:0;transition:opacity .3s}
+.lgOrb svg{position:absolute;inset:0;margin:auto;width:28px;height:28px;z-index:1;fill:none;stroke:#ff9a5e;stroke-width:3;stroke-linecap:round;stroke-linejoin:round}
+.lgOrb svg path{stroke-dasharray:24;stroke-dashoffset:24}
+.lgPh2.eat .lgOB{animation:lgEaten .22s ease-in forwards;animation-delay:calc(.05s + var(--i)*.27s)}
+.lgPh2.eat .lgOrb{animation:lgSweep 1.35s cubic-bezier(.4,0,.6,1) .05s both,lgChomp .3s ease-in-out .05s 5,lgPulse 1s ease-in-out 1.45s infinite}
+.lgPh2.eat .lgBtns,.lgPh2.eat .lgOtpHint{visibility:hidden}
+.lgPh2.done .lgOrb{animation:lgToCenter .6s cubic-bezier(.3,1.4,.5,1) forwards}
+.lgPh2.done .lgOrb:before{opacity:1}
+.lgPh2.done .lgOrb svg path{animation:lgDraw .4s ease-out .35s forwards}
+.lgPh2.shake .lgOtpRow{animation:lgShake .4s}
+.lgBurst{position:absolute;left:50%;top:27px;width:0;height:0;z-index:1;pointer-events:none}
+.lgBurst i{position:absolute;left:0;top:0;opacity:0;animation:lgBurst .95s cubic-bezier(.2,.7,.3,1) .25s forwards}
+@keyframes lgPop{from{transform:scale(.86)}to{transform:none}}
+@keyframes lgEaten{to{transform:scale(.2);opacity:0}}
+@keyframes lgSweep{from{left:0;opacity:1}to{left:calc(100% - 54px);opacity:1}}
+@keyframes lgChomp{0%,100%{transform:scale(1,1)}50%{transform:scale(.84,1.1)}}
+@keyframes lgPulse{0%,100%{box-shadow:0 8px 22px rgba(10,10,11,.35),0 0 0 0 rgba(10,10,11,.35)}50%{box-shadow:0 8px 22px rgba(10,10,11,.35),0 0 0 9px rgba(10,10,11,0)}}
+@keyframes lgToCenter{from{left:calc(100% - 54px);opacity:1;transform:scale(1)}60%{left:calc(50% - 27px);opacity:1;transform:scale(1.35)}to{left:calc(50% - 27px);opacity:1;transform:scale(1.15)}}
+@keyframes lgDraw{to{stroke-dashoffset:0}}
+@keyframes lgShake{0%,100%{transform:none}20%{transform:translateX(-8px)}40%{transform:translateX(8px)}60%{transform:translateX(-5px)}80%{transform:translateX(5px)}}
+@keyframes lgBurst{from{opacity:1;transform:translate(-50%,-50%) scale(.3)}to{opacity:0;transform:translate(calc(-50% + var(--x)),calc(-50% + var(--y))) rotate(var(--r)) scale(1)}}
+@media(prefers-reduced-motion:reduce){.lgPh2.eat .lgOB{animation:none;opacity:0}.lgPh2.eat .lgOrb{animation:none;opacity:1;left:calc(50% - 27px)}.lgPh2.done .lgOrb{animation:none}.lgPh2.done .lgOrb svg path{animation:none;stroke-dashoffset:0}.lgBurst{display:none}}
 /* ===== Google sign-in intro animation ===== */
 .gaOv{position:fixed;inset:0;z-index:400;background:#fff;color:#0a0a0b;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:10px;visibility:hidden;opacity:0;transition:opacity .2s,visibility .2s}
 .gaOv.open{visibility:visible;opacity:1}
@@ -732,7 +770,7 @@ body.termsOpen main,body.privacyOpen main{display:none}
    <div class="lgSwap">
     <h2 class="lgTitle" id="lgTitle">Welcome back</h2>
     <p class="lgSub" id="lgSub"></p>
-    <form id="lgForm" novalidate onsubmit="lgSubmit(event)">
+    <form id="lgForm" class="lgMain" novalidate onsubmit="lgSubmit(event)">
      <div class="lgFields">
       <div class="lgF lgUp"><label for="lgName">Full name</label><div class="lgBox"><svg class="icon lgI" viewBox="0 0 24 24"><circle cx="12" cy="8" r="4"/><path d="M4 21a8 8 0 0 1 16 0"/></svg><input id="lgName" type="text" autocomplete="name" placeholder="Full name" maxlength="60"></div></div>
       <div class="lgF"><label for="lgEmail">Email address</label><div class="lgBox"><svg class="icon lgI" viewBox="0 0 24 24"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="m3 7 9 6 9-6"/></svg><input id="lgEmail" type="email" inputmode="email" autocomplete="email" placeholder="Email address"></div></div>
@@ -742,8 +780,34 @@ body.termsOpen main,body.privacyOpen main{display:none}
      <div class="lgMsg" id="lgMsg" role="alert" aria-live="polite"></div>
      <button class="lgGo" id="lgGo" type="submit"><span id="lgGoTxt">Sign in</span><svg class="icon" viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6"/></svg></button>
     </form>
-    <div class="lgOr"><span id="lgOr">or continue with</span></div>
-    <button type="button" class="lgGoogle" onclick="lgSocial()"><svg width="18" height="18" viewBox="0 0 48 48" aria-hidden="true"><path fill="#EA4335" d="M24 9.5c3.5 0 6.6 1.2 9.1 3.6l6.8-6.8C35.9 2.4 30.4 0 24 0 14.6 0 6.5 5.4 2.6 13.2l7.9 6.1C12.4 13.6 17.7 9.5 24 9.5z"/><path fill="#4285F4" d="M46.5 24.5c0-1.6-.1-3.1-.4-4.5H24v9h12.7c-.6 3-2.3 5.5-4.8 7.2l7.5 5.8c4.4-4.1 7.1-10.1 7.1-17.5z"/><path fill="#FBBC05" d="M10.5 28.7c-.5-1.4-.8-3-.8-4.7s.3-3.2.8-4.7l-7.9-6.1C.9 16.4 0 20.1 0 24s.9 7.6 2.6 10.8l7.9-6.1z"/><path fill="#34A853" d="M24 48c6.4 0 11.9-2.1 15.9-5.8l-7.5-5.8c-2.1 1.4-4.8 2.3-8.4 2.3-6.3 0-11.6-4.1-13.5-9.8l-7.9 6.1C6.5 42.6 14.6 48 24 48z"/></svg>Continue with Google</button>
+    <div class="lgOr lgMain"><span id="lgOr">or continue with</span></div>
+    <button type="button" class="lgGoogle lgMain" onclick="lgSocial()"><svg width="18" height="18" viewBox="0 0 48 48" aria-hidden="true"><path fill="#EA4335" d="M24 9.5c3.5 0 6.6 1.2 9.1 3.6l6.8-6.8C35.9 2.4 30.4 0 24 0 14.6 0 6.5 5.4 2.6 13.2l7.9 6.1C12.4 13.6 17.7 9.5 24 9.5z"/><path fill="#4285F4" d="M46.5 24.5c0-1.6-.1-3.1-.4-4.5H24v9h12.7c-.6 3-2.3 5.5-4.8 7.2l7.5 5.8c4.4-4.1 7.1-10.1 7.1-17.5z"/><path fill="#FBBC05" d="M10.5 28.7c-.5-1.4-.8-3-.8-4.7s.3-3.2.8-4.7l-7.9-6.1C.9 16.4 0 20.1 0 24s.9 7.6 2.6 10.8l7.9-6.1z"/><path fill="#34A853" d="M24 48c6.4 0 11.9-2.1 15.9-5.8l-7.5-5.8c-2.1 1.4-4.8 2.3-8.4 2.3-6.3 0-11.6-4.1-13.5-9.8l-7.9 6.1C6.5 42.6 14.6 48 24 48z"/></svg>Continue with Google</button>
+    <button type="button" class="lgGoogle lgPhoneBtn lgMain" style="margin-top:10px" onclick="lgPhoneOpen()"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><rect x="7" y="2" width="10" height="20" rx="2"/><path d="M11 18h2"/></svg><span id="lgPhoneBtnTxt">Continue with phone</span></button>
+    <div class="lgPhone" id="lgPhone">
+     <div class="lgMsg" id="lgPhMsg" role="alert" aria-live="polite"></div>
+     <div id="lgPh1">
+      <div class="lgFields"><div class="lgF"><label for="lgPhoneIn">Mobile number</label><div class="lgBox"><span class="lgPre">+91</span><input class="lgPh" id="lgPhoneIn" type="tel" inputmode="numeric" autocomplete="tel-national" placeholder="10-digit mobile number" maxlength="14"></div></div></div>
+      <button class="lgGo" id="lgSendBtn" type="button" onclick="lgSendOtp()"><span>Send OTP</span><svg class="icon" viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6"/></svg></button>
+     </div>
+     <div id="lgPh2" class="lgPh2" hidden>
+      <div class="lgOtpWrap" id="lgOtpWrap">
+       <div class="lgOtpRow" id="lgOtpRow" role="group" aria-label="6-digit code">
+        <input class="lgOB" style="--i:0" type="text" inputmode="numeric" autocomplete="one-time-code" aria-label="Digit 1">
+        <input class="lgOB" style="--i:1" type="text" inputmode="numeric" autocomplete="off" aria-label="Digit 2">
+        <input class="lgOB" style="--i:2" type="text" inputmode="numeric" autocomplete="off" aria-label="Digit 3">
+        <input class="lgOB" style="--i:3" type="text" inputmode="numeric" autocomplete="off" aria-label="Digit 4">
+        <input class="lgOB" style="--i:4" type="text" inputmode="numeric" autocomplete="off" aria-label="Digit 5">
+        <input class="lgOB" style="--i:5" type="text" inputmode="numeric" autocomplete="off" aria-label="Digit 6">
+       </div>
+       <div class="lgOrb" id="lgOrb" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="m6 12.5 4 4 8-9"/></svg></div>
+       <div class="lgBurst" id="lgBurst" aria-hidden="true"></div>
+      </div>
+      <p class="lgOtpHint">Enter the code. It verifies automatically.</p>
+      <div class="lgBtns"><button type="button" class="lgLink" onclick="lgPhoneStep(1)">Change number</button><button type="button" class="lgLink" id="lgResend" onclick="lgSendOtp()" disabled>Resend code</button></div>
+     </div>
+     <div class="lgBtns" style="justify-content:center;margin-top:16px"><button type="button" class="lgLink" onclick="lgPhoneClose()">&larr; Back to other options</button></div>
+     <div id="lgRecaptcha"></div>
+    </div>
     <p class="lgTerms lgUp">By registering you agree to the <a href="#terms" onclick="closeLogin();showTerms();return false">Terms &amp; Refund Policy</a> and <a href="#privacypolicy" onclick="closeLogin();showPrivacy();return false">Privacy Policy</a>.</p>
     <p class="lgSw"><span id="lgSwTxt">New here?</span> <button type="button" id="lgSwBtn" onclick="lgSwitch()">Register now</button></p>
    </div>
@@ -1114,7 +1178,7 @@ function orderText(){
  if(c.monthly>0)L.push('Recurring care plan total: '+money(c.monthly)+'/month');
  if(c.yearly>0)L.push('Yearly care plan total: '+money(c.yearly)+'/year');
  L.push('CART BILLING BREAKDOWN: '+cartPriceText(c));
- if(authUser)L.push('Signed in with Google: '+authUser.name+' <'+authUser.email+'>');
+ if(authUser)L.push('Signed in: '+authUser.name+(authUser.email?' <'+authUser.email+'>':'')+(authUser.phone?' ('+authUser.phone+')':''));
  L.push('Note: This is a service request. It does not represent an automatic payment or auto-renewal.');
  return L.join('\n');
 }
@@ -1273,7 +1337,7 @@ async function submitOrder(e){
  e.preventDefault();const status=document.getElementById('orderStatus');status.className='status';status.textContent='Sending your AROM DIGITALS request…';
  if(!cart.length){status.classList.add('err');status.textContent='Your cart is empty.';return}
  const f=document.getElementById('checkoutForm');
- if(!authUser){status.classList.add('err');status.textContent='Please sign in with Google before sending your request.';updateAuthUI();return}
+ if(!authUser){status.classList.add('err');status.textContent='Please sign in before sending your request.';updateAuthUI();return}
  if(f.website&&f.website.value){status.classList.add('ok');status.textContent='Request sent successfully.';return}
  const nameV=f.name.value.trim(),phoneRaw=f.phone.value.replace(/[\s\-()]/g,''),phoneV=phoneRaw.replace(/^(\+91|91|0)/,'');
  if(nameV.length<2){status.classList.add('err');status.textContent='Please enter your full name.';f.name.focus();return}
@@ -1502,7 +1566,9 @@ async function adSys(){
    Authorized domains in Firebase Console, not from hiding this config. */
 const firebaseConfig={apiKey:"AIzaSyAOLfzQQL5ieOuobXcXWPDyMguwjwpVgFg",authDomain:"arom-digitals.firebaseapp.com",projectId:"arom-digitals",storageBucket:"arom-digitals.firebasestorage.app",messagingSenderId:"257823428815",appId:"1:257823428815:web:53887047e996666e89e7ba",measurementId:"G-1S60E04WT1"};
 let authUser=null,fbAuth=null;
-function toAuthUser(u){return u&&u.email?{name:u.displayName||u.email.split('@')[0],email:u.email,picture:u.photoURL||'',uid:u.uid}:null}
+function toAuthUser(u){if(!u||!(u.email||u.phoneNumber))return null;const named=!!(u.displayName||u.email);return {name:u.displayName||(u.email?u.email.split('@')[0]:'Phone user'),named:named,email:u.email||'',phone:u.phoneNumber||'',picture:u.photoURL||'',uid:u.uid}}
+function authInitial(){return authUser.named?authUser.name.charAt(0).toUpperCase():'+'}
+function authContact(){return authUser.email||authUser.phone}
 function initFirebaseAuth(){
  if(fbAuth)return true;
  if(!window.firebase||!firebase.auth)return false;
@@ -1542,14 +1608,17 @@ function updateAuthUI(){
  if($a('orderSuccess').style.display==='block'){gate.style.display='none';box.style.display='none';return}
  if(authUser){
   gate.style.display='none';box.style.display='flex';f.style.display='';
-  const av=authUser.picture?'<img src="'+esc(authUser.picture)+'" alt="" referrerpolicy="no-referrer">':'<div class="authAv">'+esc(authUser.name.charAt(0).toUpperCase())+'</div>';
-  box.innerHTML=av+'<div class="authTxt"><b>'+esc(authUser.name)+'</b><span>'+esc(authUser.email)+'</span></div><button type="button" onclick="signOutUser()">Sign out</button>';
-  if(!f.name.value)f.name.value=authUser.name;
-  f.email.value=authUser.email;f.email.readOnly=true;
+  const av=authUser.picture?'<img src="'+esc(authUser.picture)+'" alt="" referrerpolicy="no-referrer">':'<div class="authAv">'+esc(authInitial())+'</div>';
+  box.innerHTML=av+'<div class="authTxt"><b>'+esc(authUser.name)+'</b><span>'+esc(authContact())+'</span></div><button type="button" onclick="signOutUser()">Sign out</button>';
+  if(!f.name.value&&authUser.named)f.name.value=authUser.name;
+  if(authUser.email){f.email.value=authUser.email;f.email.readOnly=true}else f.email.readOnly=false;
+  if(!f.phone.value&&authUser.phone)f.phone.value=authUser.phone.replace(/^\+91/,'');
  }else{
   gate.style.display='';box.style.display='none';f.style.display='none';f.email.readOnly=false;
  }
 }
+/* Fallback toast (only used if the page does not already define showToast) */
+if(typeof showToast!=='function'){var showToast=function(m){const t=document.getElementById('toast');if(!t)return;t.textContent=m;t.classList.add('show');clearTimeout(showToast._t);showToast._t=setTimeout(()=>t.classList.remove('show'),2600)}}
 /* ===== Animated login / register ===== */
 let lgMode='signin',lgBusy=false;
 const LG_ERR={'auth/invalid-credential':'Email or password is incorrect.','auth/wrong-password':'Email or password is incorrect.','auth/user-not-found':'No account found with this email. Register instead.','auth/invalid-email':'Enter a valid email address.','auth/email-already-in-use':'An account with this email already exists. Sign in instead.','auth/weak-password':'Use a password with at least 6 characters.','auth/too-many-requests':'Too many attempts. Wait a few minutes and try again.','auth/network-request-failed':'Network error. Check your connection and try again.','auth/popup-closed-by-user':'Sign-in was cancelled.','auth/cancelled-popup-request':'Sign-in was cancelled.','auth/popup-blocked':'Your browser blocked the sign-in popup. Allow popups for this site and try again.','auth/unauthorized-domain':'This website address is not authorized in Firebase yet (Authentication > Settings > Authorized domains).','auth/operation-not-allowed':'This sign-in method is not enabled in Firebase yet (Authentication > Sign-in method).','auth/account-exists-with-different-credential':'This email already uses a different sign-in method. Use that method to continue.'};
@@ -1557,7 +1626,7 @@ const LG_USER='<svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><circle 
 const LG_EYE='<svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M2 12s3.6-7 10-7 10 7 10 7-3.6 7-10 7S2 12 2 12z"/><circle cx="12" cy="12" r="3"/></svg>';
 const LG_EYEOFF='<svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M3 3l18 18M10.6 6.2A9.8 9.8 0 0 1 12 6c6.4 0 10 6 10 6a17 17 0 0 1-3.2 3.8M6.6 7.6A16.6 16.6 0 0 0 2 12s3.6 7 10 7a9.6 9.6 0 0 0 4.3-1"/></svg>';
 function lgEl(id){return document.getElementById(id)}
-function lgMsg(t,ok){const m=lgEl('lgMsg');m.textContent=t||'';m.className='lgMsg'+(t?(ok?' ok':' err'):'')}
+function lgMsg(t,ok){['lgMsg','lgPhMsg'].forEach(id=>{const m=lgEl(id);if(!m)return;m.textContent=t||'';m.className='lgMsg'+(t?(ok?' ok':' err'):'')})}
 function lgSetMode(m){
  lgMode=m;const up=m==='signup';lgEl('lgOv').dataset.mode=m;
  lgEl('lgTitle').textContent=up?'Register now':'Welcome back';
@@ -1568,7 +1637,7 @@ function lgSetMode(m){
  lgEl('lgSwBtn').textContent=up?'Sign in':'Register now';
  const p=lgEl('lgPass');p.autocomplete=up?'new-password':'current-password';p.type='password';
  document.querySelectorAll('.lgEye').forEach(b=>{b.innerHTML=LG_EYE;b.setAttribute('aria-label','Show password')});
- lgMsg('');
+ lgMsg('');lgPhoneReset();
 }
 function lgSwitch(){const c=lgEl('lgCard'),next=lgMode==='signin'?'signup':'signin';c.classList.add('swap');setTimeout(()=>{lgSetMode(next);c.classList.remove('swap')},170)}
 function lgSkip(){lgEl('lgOv').classList.remove('play')}
@@ -1644,6 +1713,87 @@ async function lgSocial(){
  }catch(e){lgFail(e)}
  finally{lgBusy=false}
 }
+/* ===== Phone number login (Firebase Phone Auth, OTP by SMS) ===== */
+Object.assign(LG_ERR,{'auth/invalid-phone-number':'Enter a valid 10-digit mobile number.','auth/missing-phone-number':'Enter your mobile number.','auth/invalid-verification-code':'That code is wrong. Check the SMS and try again.','auth/code-expired':'This code has expired. Press Resend code.','auth/quota-exceeded':'SMS limit reached. Please try again later or use Google.','auth/captcha-check-failed':'Security check failed. Refresh the page and try again.','auth/missing-verification-code':'Enter the 6-digit code.','auth/operation-not-allowed':'Phone sign-in is not enabled in Firebase yet (Authentication > Sign-in method > Phone).'});
+let lgRecap=null,lgConf=null,lgResendT=null,lgHold=false;
+function lgPhoneNorm(raw){const d=String(raw||'').replace(/[\s\-()]/g,'').replace(/^(\+91|91|0)/,'');return /^[6-9]\d{9}$/.test(d)?'+91'+d:null}
+function lgOtpBoxes(){return Array.from(document.querySelectorAll('.lgOB'))}
+function lgOtpClear(){lgOtpBoxes().forEach(b=>{b.value='';b.classList.remove('f')})}
+function lgPhoneStep(n){lgEl('lgPh1').hidden=n!==1;lgEl('lgPh2').hidden=n!==2;lgMsg('');if(n===2){lgOtpReset();lgOtpClear()}setTimeout(()=>{const f=n===1?lgEl('lgPhoneIn'):lgOtpBoxes()[0];f&&f.focus()},50)}
+function lgOtpReset(){const p=lgEl('lgPh2');p.classList.remove('eat','done','shake');lgEl('lgBurst').innerHTML=''}
+function lgPhoneOpen(){
+ lgEl('lgCard').dataset.view='phone';lgEl('lgTitle').textContent='Sign in with phone';lgEl('lgSub').textContent='We will text a 6-digit code to your mobile number.';
+ lgPhoneStep(1);
+}
+function lgPhoneClose(){lgPhoneReset();lgSetMode(lgMode)}
+function lgPhoneReset(){
+ const c=lgEl('lgCard');if(c)c.dataset.view='';
+ const a=lgEl('lgPh1'),b=lgEl('lgPh2');if(a)a.hidden=false;if(b)b.hidden=true;
+ if(b){lgOtpReset();lgOtpClear()}clearInterval(lgResendT);lgConf=null;lgHold=false;
+}
+function lgRecapReset(){try{lgRecap&&lgRecap.clear()}catch(_){}lgRecap=null;const r=lgEl('lgRecaptcha');if(r)r.innerHTML=''}
+function lgResendTimer(){
+ const b=lgEl('lgResend');let n=30;b.disabled=true;clearInterval(lgResendT);
+ const tick=()=>{if(n<=0){clearInterval(lgResendT);b.disabled=false;b.textContent='Resend code';return}b.textContent='Resend in '+n+'s';n--};
+ tick();lgResendT=setInterval(tick,1000);
+}
+async function lgSendOtp(){
+ if(lgBusy)return;
+ const num=lgPhoneNorm(lgEl('lgPhoneIn').value);
+ if(!num)return lgMsg('Enter a valid 10-digit Indian mobile number.');
+ if(!lgReady())return;
+ const btn=lgEl('lgSendBtn');lgBusy=true;btn.disabled=true;lgMsg('');
+ try{
+  await fbAuth.setPersistence(firebase.auth.Auth.Persistence.LOCAL);
+  if(!lgRecap)lgRecap=new firebase.auth.RecaptchaVerifier('lgRecaptcha',{size:'invisible'});
+  lgConf=await fbAuth.signInWithPhoneNumber(num,lgRecap);
+  lgPhoneStep(2);lgMsg('Code sent to '+num+'.',true);lgResendTimer();track('phone_otp_sent');
+ }catch(e){lgRecapReset();lgFail(e)}
+ finally{lgBusy=false;btn.disabled=false}
+}
+function lgBurstFx(){
+ const box=lgEl('lgBurst');box.innerHTML='';const cols=['#0a0a0b','#fff','#ffd0a8','#ff5a36','#0a0a0b'];
+ for(let i=0;i<22;i++){
+  const a=(Math.PI*2*i)/22+Math.random()*.4,d=60+Math.random()*95,z=5+Math.random()*7,e=document.createElement('i');
+  e.style.cssText='--x:'+Math.round(Math.cos(a)*d)+'px;--y:'+Math.round(Math.sin(a)*d)+'px;--r:'+Math.round(Math.random()*360)+'deg;width:'+z+'px;height:'+z+'px;background:'+cols[i%cols.length]+';border-radius:'+(i%3?'50%':'2px');
+  box.appendChild(e);
+ }
+}
+async function lgVerifyOtp(){
+ if(lgBusy)return;
+ const code=lgOtpBoxes().map(b=>b.value).join('');
+ if(!/^\d{6}$/.test(code))return;
+ if(!lgConf){lgMsg('Please request a new code.');return}
+ const p=lgEl('lgPh2'),calm=window.matchMedia&&matchMedia('(prefers-reduced-motion: reduce)').matches;
+ lgBusy=true;lgHold=true;lgMsg('');
+ document.activeElement&&document.activeElement.blur&&document.activeElement.blur();
+ lgOtpReset();void p.offsetWidth;p.classList.add('eat');
+ const minWait=new Promise(r=>setTimeout(r,calm?400:1600));
+ let err=null;
+ try{await lgConf.confirm(code)}catch(e){err=e}
+ await minWait;
+ if(err){
+  lgHold=false;lgBusy=false;p.classList.remove('eat');lgOtpClear();void p.offsetWidth;p.classList.add('shake');
+  lgFail(err);const b=lgOtpBoxes()[0];b&&b.focus();
+  setTimeout(()=>p.classList.remove('shake'),500);
+  return;
+ }
+ lgEl('lgTitle').textContent='Verified successfully';lgEl('lgSub').textContent='Your number has been verified.';
+ lgBurstFx();p.classList.add('done');track('user_signin');showToast('Signed in successfully');
+ setTimeout(()=>{lgHold=false;lgBusy=false;closeLogin()},calm?900:2100);
+}
+function lgOtpCheck(){if(lgOtpBoxes().every(b=>b.value))lgVerifyOtp()}
+(function(){
+ const row=document.getElementById('lgOtpRow');if(!row)return;
+ const fill=(start,digits)=>{const bs=lgOtpBoxes();let i=start;for(const ch of digits){if(i>5)break;bs[i].value=ch;bs[i].classList.remove('f');void bs[i].offsetWidth;bs[i].classList.add('f');i++}bs[Math.min(i,5)].focus();lgOtpCheck()};
+ row.addEventListener('input',e=>{const t=e.target;if(!t.classList.contains('lgOB'))return;const bs=lgOtpBoxes(),i=bs.indexOf(t),d=t.value.replace(/\D/g,'');t.value='';if(d)fill(i,d)});
+ row.addEventListener('paste',e=>{const t=e.target;if(!t.classList.contains('lgOB'))return;e.preventDefault();const d=((e.clipboardData||window.clipboardData).getData('text')||'').replace(/\D/g,'').slice(0,6);if(d){lgOtpClear();fill(0,d)}});
+ row.addEventListener('keydown',e=>{const t=e.target;if(!t.classList.contains('lgOB'))return;const bs=lgOtpBoxes(),i=bs.indexOf(t);
+  if(e.key==='Backspace'&&!t.value&&i>0){e.preventDefault();bs[i-1].value='';bs[i-1].focus()}
+  else if(e.key==='ArrowLeft'&&i>0){e.preventDefault();bs[i-1].focus()}
+  else if(e.key==='ArrowRight'&&i<5){e.preventDefault();bs[i+1].focus()}});
+})();
+document.addEventListener('keydown',e=>{if(e.key==='Enter'&&e.target&&e.target.id==='lgPhoneIn'){e.preventDefault();lgSendOtp()}});
 async function lgForgot(){
  const email=lgEl('lgEmail').value.trim();
  if(!/^\S+@\S+\.\S+$/.test(email)){lgMsg('Enter your email above, then press Forgot password.');lgEl('lgEmail').focus();return}
@@ -1654,10 +1804,10 @@ function lgSync(){
  const b=lgEl('navLogin');if(!b)return;
  const ic=lgEl('navLoginIc'),tx=lgEl('navLoginTxt'),menu=lgEl('lgMenu');
  if(authUser){
-  ic.innerHTML='<span class="lgAv">'+(authUser.picture?'<img src="'+esc(authUser.picture)+'" alt="" referrerpolicy="no-referrer">':esc(authUser.name.charAt(0).toUpperCase()))+'</span>';
+  ic.innerHTML='<span class="lgAv">'+(authUser.picture?'<img src="'+esc(authUser.picture)+'" alt="" referrerpolicy="no-referrer">':esc(authInitial()))+'</span>';
   tx.textContent=authUser.name.split(' ')[0];
-  lgEl('lgMenuName').textContent=authUser.name;lgEl('lgMenuMail').textContent=authUser.email;
-  closeLogin();
+  lgEl('lgMenuName').textContent=authUser.name;lgEl('lgMenuMail').textContent=authContact();
+  if(!lgHold)closeLogin();
  }else{ic.innerHTML=LG_USER;tx.textContent='Log in';menu.hidden=true}
 }
 function lgNavClick(){if(!authUser){openLogin('signin');return}const m=lgEl('lgMenu');m.hidden=!m.hidden}
